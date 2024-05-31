@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/aluno/exercicio_info.dart';
+import 'package:flutter_application_1/pages/aluno/feedback_page.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart';
 
 class AlunoInicialPage extends StatefulWidget {
@@ -24,23 +25,77 @@ class _AlunoInicialPageState extends State<AlunoInicialPage> {
 
   final Map<String, List<Map<String, dynamic>>> _exerciciosPorDia = {
     'Segunda-feira': [
-      {'name': 'Panturrilhas', 'quantidade': '10 rept / 3 séries', 'imagePath': '../assets/img/quadrimusc.jpeg', 'Graph': '../assets/img/exercicio1.png', 'completed': false},
-      {'name': 'Rosca Inversa', 'quantidade': '12 rept / 3 séries', 'imagePath': '../assets/img/forearmmusc.jpg', 'Graph': '../assets/img/exercicio2.png', 'completed': false},
+      {
+        'name': 'Panturrilhas',
+        'quantidade': '10 rept / 3 séries',
+        'imagePath': '../assets/img/quadrimusc.jpeg',
+        'Graph': '../assets/img/exercicio1.png',
+        'completed': false
+      },
+      {
+        'name': 'Rosca Inversa',
+        'quantidade': '12 rept / 3 séries',
+        'imagePath': '../assets/img/forearmmusc.jpg',
+        'Graph': '../assets/img/exercicio2.png',
+        'completed': false
+      },
     ],
     'Terça-feira': [
-      {'name': 'Abdominais', 'quantidade': '15 rept / 3 séries', 'imagePath': '../assets/img/abdomemmusc.jpeg', 'Graph': '../assets/img/exercicio3.png', 'completed': false},
-      {'name': 'Rosca Direta', 'quantidade': '10 rept / 5 séries', 'imagePath': '../assets/img/bracomusc.jpeg', 'Graph': '../assets/img/exercicio4.png', 'completed': false},
+      {
+        'name': 'Abdominais',
+        'quantidade': '15 rept / 3 séries',
+        'imagePath': '../assets/img/abdomemmusc.jpeg',
+        'Graph': '../assets/img/exercicio3.png',
+        'completed': false
+      },
+      {
+        'name': 'Rosca Direta',
+        'quantidade': '10 rept / 5 séries',
+        'imagePath': '../assets/img/bracomusc.jpeg',
+        'Graph': '../assets/img/exercicio4.png',
+        'completed': false
+      },
     ],
     'Quarta-feira': [
-      {'name': 'Agachamento', 'quantidade': '10 rept / 3 séries', 'imagePath': '../assets/img/legmusc.jpeg', 'Graph': '../assets/img/exercicio5.png', 'completed': false},
-      {'name': 'Tríceps Banco', 'quantidade': '12 rept / 3 séries', 'imagePath': '../assets/img/tricepmusc.jpeg', 'Graph': '../assets/img/exercicio6.png', 'completed': false},
+      {
+        'name': 'Agachamento',
+        'quantidade': '10 rept / 3 séries',
+        'imagePath': '../assets/img/legmusc.jpeg',
+        'Graph': '../assets/img/exercicio5.png',
+        'completed': false
+      },
+      {
+        'name': 'Tríceps Banco',
+        'quantidade': '12 rept / 3 séries',
+        'imagePath': '../assets/img/tricepmusc.jpeg',
+        'Graph': '../assets/img/exercicio6.png',
+        'completed': false
+      },
     ],
     'Quinta-feira': [
-      {'name': 'Panturilhas', 'quantidade': '10 rept / 3 séries', 'imagePath': '../assets/img/calf-muscle.jpg', 'Graph': '../assets/img/exercicio7.png', 'completed': false},
-      {'name': 'Elevação Lateral', 'quantidade': '15 rept / 3 séries', 'imagePath': '../assets/img/ombromusc.jpeg', 'Graph': '../assets/img/exercicio8.png', 'completed': false},
+      {
+        'name': 'Panturilhas',
+        'quantidade': '10 rept / 3 séries',
+        'imagePath': '../assets/img/calf-muscle.jpg',
+        'Graph': '../assets/img/exercicio7.png',
+        'completed': false
+      },
+      {
+        'name': 'Elevação Lateral',
+        'quantidade': '15 rept / 3 séries',
+        'imagePath': '../assets/img/ombromusc.jpeg',
+        'Graph': '../assets/img/exercicio8.png',
+        'completed': false
+      },
     ],
     'Sexta-feira': [
-      {'name': 'Remada Curvada', 'quantidade': '12 rept / 3 séries', 'imagePath': '../assets/img/backmuscle.jpeg', 'Graph': '../assets/img/exercicio9.png', 'completed': false},
+      {
+        'name': 'Remada Curvada',
+        'quantidade': '12 rept / 3 séries',
+        'imagePath': '../assets/img/backmuscle.jpeg',
+        'Graph': '../assets/img/exercicio9.png',
+        'completed': false
+      },
     ],
     'Sábado': [],
     'Domingo': [],
@@ -55,7 +110,7 @@ class _AlunoInicialPageState extends State<AlunoInicialPage> {
           Navigator.pop(context);
           break;
         case 1:
-          // Nada a fazer aqui, pois já estamos na página inicial do aluno
+          // Já estamos na página inicial do aluno
           break;
         case 2:
           Navigator.push(
@@ -87,7 +142,10 @@ class _AlunoInicialPageState extends State<AlunoInicialPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Olá, Aluno'),
+        title: const Text(
+          'Olá, Aluno',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -142,8 +200,10 @@ class _AlunoInicialPageState extends State<AlunoInicialPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(exercicio['name'], style: const TextStyle(color: Colors.white)),
-                              Text(exercicio['quantidade'], style: const TextStyle(color: Colors.white)),
+                              Text(exercicio['name'],
+                                  style: const TextStyle(color: Colors.white)),
+                              Text(exercicio['quantidade'],
+                                  style: const TextStyle(color: Colors.white)),
                             ],
                           ),
                         ],
@@ -180,8 +240,59 @@ class _AlunoInicialPageState extends State<AlunoInicialPage> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FeedbackPage()),
+          );
+        },
+        child: const Icon(Icons.feedback),
+        backgroundColor: Colors.amber,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
+}
+
+Widget _buildProductCard(BuildContext context, String name, String quantidade,
+    String imagePath, String Graph) {
+  return Card(
+    margin: const EdgeInsets.all(8.0),
+    color: Colors.cyan[900],
+    child: ListTile(
+      leading: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      title: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(' $name', style: const TextStyle(color: Colors.white)),
+          const SizedBox(width: 40),
+          Text(' $quantidade', style: const TextStyle(color: Colors.white)),
+        ],
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ExercicioInfoPage(
+              nomeExercicio: name,
+              imagePath: imagePath,
+              graph: Graph,
+            ),
+          ),
+        );
+      },
+    ),
+  );
 }
 
 void main() {
