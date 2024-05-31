@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/produtos/tela2.dart';
-import 'tela2.dart';
 
 class EstoqueProfPage extends StatelessWidget {
   @override
