@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart';
 
 class CadastrarAlunoPage extends StatefulWidget {
@@ -15,33 +16,23 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  // Índices para o BottomNavigationBar e DropdownButtonFormField
+  // Controladores de texto para cada campo
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _codigoController = TextEditingController();
+  final TextEditingController _dataNascimentoController =
+      TextEditingController();
+  final TextEditingController _generoController = TextEditingController();
+  final TextEditingController _horariosController = TextEditingController();
+  final TextEditingController _cpfController = TextEditingController();
+  final TextEditingController _estadoController = TextEditingController();
+  final TextEditingController _telefoneController = TextEditingController();
+  final TextEditingController _alturaController = TextEditingController();
+  final TextEditingController _pesoController = TextEditingController();
+  final TextEditingController _codigoDeAcessoController =
+      TextEditingController();
+
+  // Índices para o BottomNavigationBar
   int _bottomNavBarIndex = 1;
-  int _dropdownIndex = 1;
-
-  // Lista de dias da semana
-  final List<String> _diasSemana = [
-    'Segunda-feira',
-    'Terça-feira',
-    'Quarta-feira',
-    'Quinta-feira',
-    'Sexta-feira',
-    'Sábado',
-    'Domingo'
-  ];
-
-  // Mapa para armazenar os exercícios para cada dia
-  Map<String, List<String>> _exerciciosPorDia = {
-    'Segunda-feira': [],
-    'Terça-feira': [],
-    'Quarta-feira': [],
-    'Quinta-feira': [],
-    'Sexta-feira': [],
-    'Sábado': [],
-    'Domingo': [],
-  };
-
-  TextEditingController _exercicioController = TextEditingController();
 
   @override
   void initState() {
@@ -61,7 +52,6 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
   void dispose() {
     _controller.dispose();
     super.dispose();
-    _exercicioController.dispose();
   }
 
   void _onBottomNavBarTapped(int index) {
@@ -95,58 +85,49 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
     });
   }
 
-  void _verExerciciosSelecionados() {
-    List<String> todosExercicios = [];
-    _diasSemana.forEach((dia) {
-      todosExercicios.addAll(_exerciciosPorDia[dia]!);
-    });
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Todos os Exercícios'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: todosExercicios.map((exercicio) {
-                return Text(exercicio);
-              }).toList(),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Fechar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  void _cadastrarAluno() async {
+    final CollectionReference alunos =
+        FirebaseFirestore.instance.collection('alunos');
 
-  void _adicionarExercicio(String dia) {
-    String novoExercicio = _exercicioController.text.trim();
-    if (novoExercicio.isNotEmpty) {
-      novoExercicio = '($dia) $novoExercicio';
-      setState(() {
-        _exerciciosPorDia[dia]!.add(novoExercicio);
-        _exercicioController.clear();
-      });
-    }
-  }
+    // Dados do aluno a serem adicionados
+    final alunoData = {
+      'nome': _nomeController.text,
+      'codigo': int.tryParse(_codigoController.text) ?? 0,
+      'dataDeNasc': _dataNascimentoController.text,
+      'genero': _generoController.text,
+      'horarios': _horariosController.text,
+      'cpf': _cpfController.text,
+      'estado': _estadoController.text,
+      'telefone': _telefoneController.text,
+      'altura': double.tryParse(_alturaController.text) ?? 0.0,
+      'peso': int.tryParse(_pesoController.text) ?? 0,
+      'codigoDeAcesso': _codigoDeAcessoController.text,
+    };
 
-  void _atualizarDiaSelecionado(String? value) {
-    if (value != null) {
-      setState(() {
-        _dropdownIndex = _diasSemana.indexOf(value);
-      });
+    try {
+      await alunos.add(alunoData);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Aluno cadastrado com sucesso!')),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao cadastrar aluno: $e')),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Cadastrar Aluno',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color.fromARGB(255, 8, 83, 83),
+        elevation: 0,
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -166,201 +147,165 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
             children: [
               const SizedBox(height: 20),
               const Text(
-                'Nome completo', // Label para o campo de texto
+                'Nome completo',
                 style: TextStyle(color: Colors.white),
               ),
               TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Data de nascimento', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Gênero', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Endereço', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Número de telefone', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'E-mail', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Altura', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Peso', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Condições médicas pré-existentes', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Lesões prévias', // Label para o campo de texto
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white), // Cor do texto
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
-                ),
-              ),
-
-              const SizedBox(height: 50),
-              // Dropdown para selecionar o dia da semana
-              DropdownButtonFormField<String>(
+                controller: _nomeController,
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
-                style: TextStyle(color: Colors.white), // Cor do texto do dropdown
-                iconEnabledColor: Colors.white, // Cor do ícone do dropdown
-                value: _diasSemana[_dropdownIndex],
-                items: _diasSemana
-                    .map((dia) => DropdownMenuItem(
-                          child: Text(
-                            dia,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          value: dia,
-                        ))
-                    .toList(),
-                onChanged: _atualizarDiaSelecionado,
-              ),              const SizedBox(height: 20),
+              ),
+              const SizedBox(height: 10),
               const Text(
-                'Nome completo', // Label para o campo de texto
+                'Código',
                 style: TextStyle(color: Colors.white),
               ),
               TextField(
-                controller: _exercicioController,
-                style: const TextStyle(color: Colors.white), // Cor do texto
+                controller: _codigoController,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.1), // Cor do fundo do campo
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Data de nascimento',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _dataNascimentoController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Gênero',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _generoController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Horários',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _horariosController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'CPF',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _cpfController,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Estado',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _estadoController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Número de telefone',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _telefoneController,
+                keyboardType: TextInputType.phone,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Altura',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _alturaController,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Peso',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _pesoController,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Código de Acesso',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _codigoDeAcessoController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  _adicionarExercicio(_diasSemana[_dropdownIndex]);
-                },
+                onPressed: _cadastrarAluno,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Cor de fundo do botão
+                  backgroundColor: Colors.blue,
                 ),
                 child: const Text(
-                  'Adicionar Exercício',
+                  'Cadastrar Aluno',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _verExerciciosSelecionados,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Cor de fundo do botão
-                ),
-                child: const Text(
-                  'Ver Exercícios',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-                            const SizedBox(height: 20),
-              // Lista de exercícios para o dia selecionado
-              if (_diasSemana.isNotEmpty)
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _exerciciosPorDia[_diasSemana[_dropdownIndex]]!.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(
-                        _exerciciosPorDia[_diasSemana[_dropdownIndex]]![index],
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  },
-                ),
             ],
-            
           ),
-          
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

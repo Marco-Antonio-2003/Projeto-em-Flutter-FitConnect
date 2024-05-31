@@ -5,7 +5,10 @@ class ProdutosCompradosProfPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Produtos Comprados'),
+        title: const Text(
+          'Produtos Comprados',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(

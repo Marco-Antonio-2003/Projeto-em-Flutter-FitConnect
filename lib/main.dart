@@ -1,13 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/aluno/aluno_login.dart';
 import 'package:flutter_application_1/pages/professor/professor_login_page.dart';
+import 'package:flutter_application_1/pages/produtos/tela1.dart'; // Adicione isso
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
+void main() {
+  runApp(MyApp());
 }
 
-class _LoginPageState extends State<LoginPage> {
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Academia CRM',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          color: Colors.black87,
+        ),
+      ),
+      initialRoute: '/', // Define a rota inicial como '/'
+      routes: {
+        '/': (context) => MainPage(), // Define a tela principal como a rota inicial
+        '/aluno_login': (context) => AlunoLoginPage(),
+        '/professor_login': (context) => ProfessorLoginPage(),
+      },
+    );
+  }
+}
+
+// A tela principal onde o usuário escolhe entre logar como professor ou aluno
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,17 +108,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginPage(),
     );
   }
 }

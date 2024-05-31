@@ -6,7 +6,10 @@ class EstoqueProfPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Estoque'),
+        title: const Text(
+          'Estoque',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(

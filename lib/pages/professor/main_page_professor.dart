@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart';
-import 'package:flutter_application_1/pages/professor/cadastrar_aluno.dart';
-import 'ver_alunos_page.dart'; // Mantém o import da VerAlunosPage.dart
-import 'adic_exerc.dart'; // Importe a página AdicionarExercicioPage.dart
-import 'estoque_prof.dart'; // Importe a página EstoquePage
-import 'prod_comprados_prof.dart'; // Importe a página ProdutosCompradosProfPage
+import 'package:flutter_application_1/pages/professor/ver_alunos_page.dart'; // Mantém o import da VerAlunosPage.dart
+import 'package:flutter_application_1/pages/professor/adic_exerc.dart'; // Importe a página AdicionarExercicioPage.dart
+import 'package:flutter_application_1/pages/professor/estoque_prof.dart'; // Importe a página EstoquePage
+import 'package:flutter_application_1/pages/professor/prod_comprados_prof.dart'; // Importe a página ProdutosCompradosProfPage
+import 'package:flutter_application_1/pages/professor/cadastrar_aluno.dart'; // Importe a página CadastrarAlunoPage.dart
 
 class MainPageProfessor extends StatefulWidget {
   MainPageProfessor({super.key, this.nomeProfessor});
@@ -104,6 +104,19 @@ class _MainPageProfessorState extends State<MainPageProfessor>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      _buildCard(
+                        text: 'Cadastrar Aluno',
+                        icon: Icons.person_add,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CadastrarAlunoPage(),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 20),
                       _buildCard(
                         text: 'Ver seus alunos(as)',
                         icon: Icons.group,

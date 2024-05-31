@@ -54,7 +54,7 @@ class _ExercicioInfoPageState extends State<ExercicioInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.nomeExercicio}'),
+        title: Text(widget.nomeExercicio),
       ),
       body: Container(
         decoration: BoxDecoration(

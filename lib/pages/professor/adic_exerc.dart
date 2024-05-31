@@ -48,7 +48,10 @@ class _AdicionarExercicioPageState extends State<AdicionarExercicioPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar novos exercícios'),
+        title: const Text(
+          'Adicionar novos exercícios',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
