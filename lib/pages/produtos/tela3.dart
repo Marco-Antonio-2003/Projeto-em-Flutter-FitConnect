@@ -1,15 +1,22 @@
-// tela3.dart
-
 import 'package:flutter/material.dart';
 
 class Tela3 extends StatelessWidget {
   final String nomeProduto;
+  final double precoUnitario;
+  final int quantidade;
   final String imagePath;
 
-  Tela3({required this.nomeProduto, required this.imagePath});
+  Tela3({
+    required this.nomeProduto,
+    required this.precoUnitario,
+    required this.quantidade,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
+    double valorTotal = precoUnitario * quantidade;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -19,7 +26,8 @@ class Tela3 extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.black87,
         iconTheme: const IconThemeData(
-            color: Colors.white), // Define a cor do ícone de voltar
+          color: Colors.white,
+        ),
       ),
       backgroundColor: Colors.black87,
       body: Center(
@@ -36,9 +44,23 @@ class Tela3 extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+            Text(
+              'Preço Unitário: R\$${precoUnitario.toStringAsFixed(2)}',
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Quantidade: $quantidade',
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Valor Total: R\$${valorTotal.toStringAsFixed(2)}',
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Lógica para pagar com PIX
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -63,7 +85,6 @@ class Tela3 extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                // Lógica para pagar com Cartão
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {

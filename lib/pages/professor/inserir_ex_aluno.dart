@@ -98,7 +98,10 @@ class _InserirExAlunoPageState extends State<InserirExAlunoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inserir exercícios para: ${widget.nomeAluno}'),
+        title: Text(
+          'Inserir exercícios para: ${widget.nomeAluno}',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -129,7 +132,8 @@ class _InserirExAlunoPageState extends State<InserirExAlunoPage> {
                     _selectedDia = newValue!;
                   });
                 },
-                items: _diasSemana.map<DropdownMenuItem<String>>((String value) {
+                items:
+                    _diasSemana.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -149,7 +153,8 @@ class _InserirExAlunoPageState extends State<InserirExAlunoPage> {
                     _selectedExercicio = newValue!;
                   });
                 },
-                items: _exercicios.map<DropdownMenuItem<String>>((String value) {
+                items:
+                    _exercicios.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),

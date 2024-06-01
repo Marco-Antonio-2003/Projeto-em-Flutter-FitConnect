@@ -28,63 +28,63 @@ class EstoqueProfPage extends StatelessWidget {
             _buildProductCard(
               context,
               'Whey Protein',
-              'R\$ 99,99',
+              99.99,
               '../assets/img/whey_protein.jpg',
-              30, // Exemplo de quantidade em estoque
+              30,
             ),
             _buildProductCard(
               context,
               'Creatina',
-              'R\$ 49,99',
+              49.99,
               '../assets/img/creatina.jpg',
-              32, // Exemplo de quantidade em estoque
+              32,
             ),
             _buildProductCard(
               context,
               'BCAA',
-              'R\$ 39,99',
+              39.99,
               '../assets/img/bcaa.jpg',
-              20, // Exemplo de quantidade em estoque
+              20,
             ),
             _buildProductCard(
               context,
               'Glutamina',
-              'R\$ 59,99',
+              59.99,
               '../assets/img/glutamina.jpg',
               27,
             ),
             _buildProductCard(
               context,
               'Albumina',
-              'R\$ 19,99',
+              19.99,
               '../assets/img/albumina.jpg',
               18,
             ),
             _buildProductCard(
               context,
               'Termogênico',
-              'R\$ 79,99',
+              79.99,
               '../assets/img/termogenico.jpg',
               26,
             ),
             _buildProductCard(
               context,
               'Omega 3',
-              'R\$ 34,99',
+              34.99,
               '../assets/img/omega3.jpg',
               40,
             ),
             _buildProductCard(
               context,
               'Barra de Proteína',
-              'R\$ 9,99',
+              9.99,
               '../assets/img/barra_proteina.jpg',
               29,
             ),
             _buildProductCard(
               context,
               'Caseína',
-              'R\$ 69,99',
+              69.99,
               '../assets/img/caseina.jpg',
               34,
             ),
@@ -94,8 +94,7 @@ class EstoqueProfPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProductCard(BuildContext context, String name, String price,
-      String imagePath, int quantityInStock) {
+  Widget _buildProductCard(BuildContext context, String name, double price, String imagePath, int quantityInStock) {
     return Card(
       margin: const EdgeInsets.all(8.0),
       color: Colors.transparent,
@@ -114,9 +113,8 @@ class EstoqueProfPage extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Preço: $price', style: const TextStyle(color: Colors.white)),
-            Text('Quantidade em estoque: $quantityInStock',
-                style: const TextStyle(color: Colors.white)),
+            Text('Preço: R\$ $price', style: const TextStyle(color: Colors.white)),
+            Text('Quantidade em estoque: $quantityInStock', style: const TextStyle(color: Colors.white)),
           ],
         ),
         onTap: () {
@@ -125,6 +123,7 @@ class EstoqueProfPage extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => TelaDetalhesProduto(
                 nomeProduto: name,
+                precoUnitario: price,
                 imagePath: imagePath,
               ),
             ),

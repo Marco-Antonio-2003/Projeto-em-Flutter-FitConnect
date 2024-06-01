@@ -51,7 +51,10 @@ class _HistoricoAlunoState extends State<HistoricoAluno> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Histórico do ${widget.nomeAluno}'),
+        title: Text(
+          'Histórico do ${widget.nomeAluno}',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         height: double.infinity, // Alteração aqui

@@ -1,14 +1,24 @@
-// tela2.dart
-
 import 'package:flutter/material.dart';
 import 'tela3.dart';
 import 'package:flutter_application_1/models/informacoes_produtos.dart';
 
-class TelaDetalhesProduto extends StatelessWidget {
+class TelaDetalhesProduto extends StatefulWidget {
   final String nomeProduto;
+  final double precoUnitario;
   final String imagePath;
 
-  TelaDetalhesProduto({required this.nomeProduto, required this.imagePath});
+  TelaDetalhesProduto({
+    required this.nomeProduto,
+    required this.precoUnitario,
+    required this.imagePath,
+  });
+
+  @override
+  _TelaDetalhesProdutoState createState() => _TelaDetalhesProdutoState();
+}
+
+class _TelaDetalhesProdutoState extends State<TelaDetalhesProduto> {
+  int quantidade = 1;
 
   String getInformacoesProduto(String nomeProduto) {
     switch (nomeProduto) {
@@ -18,8 +28,6 @@ class TelaDetalhesProduto extends StatelessWidget {
         return InformacoesProdutos.creatina;
       case 'BCAA':
         return InformacoesProdutos.bcaa;
-      // case 'Multivitamínico':
-      //   return InformacoesProdutos.multivitaminico;
       case 'Glutamina':
         return InformacoesProdutos.glutamina;
       case 'Albumina':
@@ -32,7 +40,6 @@ class TelaDetalhesProduto extends StatelessWidget {
         return InformacoesProdutos.caseina;
       case 'Termogênico':
         return InformacoesProdutos.termogenico;
-      // Adicione mais produtos conforme necessário
       default:
         return 'Informações sobre este produto não encontradas.';
     }
@@ -49,55 +56,90 @@ class TelaDetalhesProduto extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.black87,
         iconTheme: const IconThemeData(
-            color: Colors.white), // Define a cor do ícone de voltar
+          color: Colors.white,
+        ),
       ),
       backgroundColor: Colors.black87,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                imagePath,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                widget.imagePath,
                 width: 200,
                 height: 200,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                nomeProduto,
-                style:const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
+              SizedBox(height: 10),
+              Text(
+                widget.nomeProduto,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                getInformacoesProduto(
-                    nomeProduto), // Exibe as informações específicas do produto
+              SizedBox(height: 10),
+              Text(
+                getInformacoesProduto(widget.nomeProduto),
                 style: const TextStyle(color: Colors.white),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Navegar para a tela 3
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
+              SizedBox(height: 20),
+              Text(
+                'Preço Unitário: R\$${widget.precoUnitario.toStringAsFixed(2)}',
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.remove),
+                    color: Colors.white,
+                    onPressed: () {
+                      setState(() {
+                        if (quantidade > 1) {
+                          quantidade--;
+                        }
+                      });
+                    },
+                  ),
+                  Text(
+                    '$quantidade',
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    color: Colors.white,
+                    onPressed: () {
+                      setState(() {
+                        quantidade++;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
                       builder: (context) => Tela3(
-                            nomeProduto: nomeProduto,
-                            imagePath: imagePath,
-                          )),
-                );
-              },
-              child: const Text('Comprar'),
-            ),
-          ],
+                        nomeProduto: widget.nomeProduto,
+                        precoUnitario: widget.precoUnitario,
+                        quantidade: quantidade,
+                        imagePath: widget.imagePath,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Comprar'),
+              ),
+            ],
+          ),
         ),
       ),
     );
