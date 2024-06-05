@@ -1,0 +1,76 @@
+[{
+  "_id": {
+    "$oid": "65fa157453c01260528abd9c"
+  },
+  "Nome": "Luiz Felipe",
+  "Codigo": 1,
+  "Data de Nasc": {
+    "$date": "1995-10-07T00:00:00.000Z"
+  },
+  "Genero": "Masc",
+  "Horarios": "7:00 às 16:00",
+  "CPF": "592.345.228-69",
+  "Cidade": "Sorocaba",
+  "Estado": "SP",
+  "Telefone": "(15) 9854-8990",
+  "Alunos": 4,
+  "Login": "luizf",
+  "Senha": "luiz123"
+},
+{
+  "_id": {
+    "$oid": "66030cc5463fccdba3b961a0"
+  },
+  "Nome": "Marcos Fernandes ",
+  "Codigo": 2,
+  "Data de Nasc": {
+    "$date": "1989-12-01T00:00:00.000Z"
+  },
+  "Genero": "Masc",
+  "Horarios": "6:00 às 15:00",
+  "CPF": "186.603.088-40",
+  "Cidade": "Sorocaba",
+  "Estado": "SP",
+  "Telefone": "(15) 9911-1245",
+  "Alunos": 3,
+  "Login": "marcosf",
+  "Senha": "marcos123"
+},
+{
+  "_id": {
+    "$oid": "66030cc8463fccdba3b961a1"
+  },
+  "Nome": "Anna Clara",
+  "Codigo": 3,
+  "Data de Nasc": {
+    "$date": "2000-09-19T00:00:00.000Z"
+  },
+  "Genero": "Fem",
+  "Horarios": "12:00 às 20:00",
+  "CPF": "386.559.918-48",
+  "Cidade": "Campinas",
+  "Estado": "SP",
+  "Telefone": "(15) 9933-9090",
+  "Alunos": 3,
+  "Login": "annac",
+  "Senha": "anna123"
+},
+{
+  "_id": {
+    "$oid": "66030ccf463fccdba3b961a2"
+  },
+  "Nome": "Regina Flores",
+  "Codigo": 4,
+  "Data de Nasc": {
+    "$date": "1985-10-10T00:00:00.000Z"
+  },
+  "Genero": "Fem",
+  "Horarios": "14:00 às 22:00",
+  "CPF": "305.464.858-39",
+  "Cidade": "Sorocaba",
+  "Estado": "SP",
+  "Telefone": "(15) 9845-1099",
+  "Alunos": 5,
+  "Login": "reginaf",
+  "Senha": "regina123"
+}]

@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "65fa11af53c01260528abd95"
+  },
+  "Nome": "Whay Protain",
+  "Codigo": 1,
+  "Data de validade": {
+    "$date": "2025-10-10T00:00:00.000Z"
+  },
+  "Quantidade": 15,
+  "Preco": {
+    "$numberDecimal": "128.90"
+  },
+  "Peso": "1KG",
+  "Marca": "Whay",
+  "Descricao": "Produto Hiper Proteíco Sabor original",
+  "Fornecedora": "Suplementos Sorocaba",
+  "Gluten": "Sim",
+  "Lactose": "Não"
+},
+{
+  "_id": {
+    "$oid": "660444c376788d09947f5214"
+  },
+  "Nome": "Creatina",
+  "Codigo": 2,
+  "Data de validade": {
+    "$date": "2025-11-11T00:00:00.000Z"
+  },
+  "Quantidade": 25,
+  "Preco": {
+    "$numberDecimal": "133.32"
+  },
+  "Peso": "300G",
+  "Marca": "Max Titanium",
+  "Descricao": "Produto MonoHidratada Sabor original",
+  "Fornecedora": "Suplementos Sorocaba",
+  "Gluten": "Não",
+  "Lactose": "Não"
+},
+{
+  "_id": {
+    "$oid": "660444c676788d09947f5215"
+  },
+  "Nome": "Whay Protain Concentrado ",
+  "Codigo": 3,
+  "Data de validade": {
+    "$date": "2026-06-29T00:00:00.000Z"
+  },
+  "Quantidade": 12,
+  "Preco": {
+    "$numberDecimal": "120.33"
+  },
+  "Peso": "1KG",
+  "Marca": "Whay",
+  "Descricao": "Creatina Monohidratada Sabor Chocolate",
+  "Fornecedora": "Suplementos Campinas",
+  "Gluten": "Sim",
+  "Lactose": "Sim"
+},
+{
+  "_id": {
+    "$oid": "660444c976788d09947f5216"
+  },
+  "Nome": "Whey Glutamina",
+  "Codigo": 4,
+  "Data de validade": {
+    "$date": "2026-03-11T00:00:00.000Z"
+  },
+  "Quantidade": 10,
+  "Preco": {
+    "$numberDecimal": "120.98"
+  },
+  "Peso": "900G",
+  "Marca": "Whay Fusion",
+  "Descricao": "Suplemento proteico formulado com matéria prima importada, Sabor Baunilha",
+  "Fornecedora": "Fusion suplementos",
+  "Gluten": "Não",
+  "Lactose": "Não"
+},
+{
+  "_id": {
+    "$oid": "6604476476788d09947f5218"
+  },
+  "Nome": "Whey Glutamina",
+  "Codigo": 5,
+  "Data de validade": {
+    "$date": "2026-05-11T00:00:00.000Z"
+  },
+  "Quantidade": 7,
+  "Preco": {
+    "$numberDecimal": "115.90"
+  },
+  "Peso": "900G",
+  "Marca": "Whay Fusion",
+  "Descricao": "Suplemento proteico formulado com matéria prima importada, Sabor Original",
+  "Fornecedora": "Fusion suplementos",
+  "Gluten": "Não",
+  "Lactose": "Não"
+},
+{
+  "_id": {
+    "$oid": "6604479276788d09947f5219"
+  },
+  "Nome": "Whay Protain Concentrado ",
+  "Codigo": 6,
+  "Data de validade": {
+    "$date": "2026-07-28T00:00:00.000Z"
+  },
+  "Quantidade": 10,
+  "Preco": {
+    "$numberDecimal": "115.33"
+  },
+  "Peso": "1KG",
+  "Marca": "Whay",
+  "Descricao": "Creatina Monohidratada Sabor Original",
+  "Fornecedora": "Suplementos Campinas",
+  "Gluten": "Sim",
+  "Lactose": "Sim"
+}]

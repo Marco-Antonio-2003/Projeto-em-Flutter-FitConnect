@@ -1,0 +1,240 @@
+[{
+  "_id": {
+    "$oid": "65fa123653c01260528abd96"
+  },
+  "Nome": "Flexão",
+  "Musculo": "Biceps",
+  "Sets": 12,
+  "Duracao": "1 min",
+  "Repeticao": 3,
+  "Descricao": "Fortalecimento nos biceps",
+  "Maquina": "Halteres",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Alta"
+},
+{
+  "_id": {
+    "$oid": "66045d0976788d09947f5229"
+  },
+  "Nome": "Rosca Direta",
+  "Musculo": "Biceps",
+  "Sets": 12,
+  "Duracao": "1 min",
+  "Repeticao": 3,
+  "Descricao": "Exercício clássico para o fortalecimento dos bíceps",
+  "Maquina": "Halteres",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Alta"
+},
+{
+  "_id": {
+    "$oid": "66045f7176788d09947f522d"
+  },
+  "Nome": "Agachamento",
+  "Musculo": "Quadríceps, Glúteos",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "FMantenha os pés afastados na largura dos ombros, abaixe os quadris até que as coxas fiquem paralelas ao chão, mantendo os joelhos atrás dos dedos dos pés. Volte à posição inicial.",
+  "Maquina": "Barra com pesos",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "2 vezes por semana "
+},
+{
+  "_id": {
+    "$oid": "66045f7a76788d09947f522e"
+  },
+  "Nome": "Supino",
+  "Musculo": "Peitoral, Tríceps, Ombros",
+  "Sets": 10,
+  "Duracao": "1 min",
+  "Repeticao": 4,
+  "Descricao": "Deitado em um banco plano, segure a barra com as mãos um pouco mais afastadas do que a largura dos ombros. Abaixe a barra até o peito e depois empurre-a para cima até os braços estarem estendidos",
+  "Maquina": "Banco de supino",
+  "Descanso": "90 seg entre series",
+  "Codigo": 1,
+  "Frequencia": "2 vezes por semana"
+},
+{
+  "_id": {
+    "$oid": "66045f7c76788d09947f522f"
+  },
+  "Nome": "Puxada na Barra",
+  "Musculo": "Costas, Bíceps",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Segure a barra com as mãos afastadas na largura dos ombros, puxe o corpo para cima até o queixo ultrapassar a barra e depois desça controladamente",
+  "Maquina": "Barra fixa",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "3 vezes por semana"
+},
+{
+  "_id": {
+    "$oid": "66045f9276788d09947f5230"
+  },
+  "Nome": "Leg Press",
+  "Musculo": "Quadríceps, Glúteos, Isquiotibiais",
+  "Sets": 12,
+  "Duracao": "1 min",
+  "Repeticao": 3,
+  "Descricao": "Sentado na máquina, empurre a plataforma com os pés até as pernas estarem estendidas e depois volte à posição inicial",
+  "Maquina": "Leg press",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Baixa"
+},
+{
+  "_id": {
+    "$oid": "66045f9476788d09947f5231"
+  },
+  "Nome": "Elevação Latera",
+  "Musculo": "Ombros",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Segure halteres com os braços estendidos ao lado do corpo, levante os braços até a altura dos ombros e depois abaixe-os lentamente",
+  "Maquina": "Halteres",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Média"
+},
+{
+  "_id": {
+    "$oid": "66045f9676788d09947f5232"
+  },
+  "Nome": "Curl de Bíceps",
+  "Musculo": "Biceps",
+  "Sets": 12,
+  "Duracao": "10 min",
+  "Repeticao": 3,
+  "Descricao": "Segure halteres com as palmas das mãos viradas para cima, contraia os bíceps para levantar os halteres em direção aos ombros e depois abaixe-os controladamente",
+  "Maquina": "Halteres",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Alta"
+},
+{
+  "_id": {
+    "$oid": "66045f9876788d09947f5233"
+  },
+  "Nome": "Tríceps Pulley",
+  "Musculo": "Tríceps",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Utilizando a polia alta, segure a barra com as mãos próximas e puxe-a para baixo estendendo os cotovelos e depois retorne à posição inicial",
+  "Maquina": "Polia alta",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "2 vezes por semana"
+},
+{
+  "_id": {
+    "$oid": "66045f9c76788d09947f5234"
+  },
+  "Nome": "Elevação de Panturrilha",
+  "Musculo": "Panturrilha",
+  "Sets": 15,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Fique na ponta dos pés com os calcanhares fora da borda de uma plataforma, depois abaixe os calcanhares abaixo da plataforma e depois levante-os o mais alto possível",
+  "Maquina": "Máquina de elevação de panturrilha",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "2 vezes por semana"
+},
+{
+  "_id": {
+    "$oid": "66045f9e76788d09947f5235"
+  },
+  "Nome": "Prancha",
+  "Musculo": "Core (Abdominais e lombar)",
+  "Sets": 3,
+  "Duracao": "1 min",
+  "Repeticao": 3,
+  "Descricao": " Deite-se de bruços com os cotovelos diretamente sob os ombros, levante o corpo, mantendo-o reto como uma prancha, e segure a posição",
+  "Maquina": "Sem máquina",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "3 vezes por semana"
+},
+{
+  "_id": {
+    "$oid": "66045fa076788d09947f5236"
+  },
+  "Nome": "Deadlift",
+  "Musculo": " Posterior de pernas, Costas, Core",
+  "Sets": 10,
+  "Duracao": "10 min",
+  "Repeticao": 3,
+  "Descricao": "Agache-se para pegar uma barra no chão com as costas retas e os ombros para trás, então levante-se mantendo a barra próxima ao corpo e estenda os quadris",
+  "Maquina": "Barra com pesos",
+  "Descanso": "90 seg entre series",
+  "Codigo": 1,
+  "Frequencia": "Alta"
+},
+{
+  "_id": {
+    "$oid": "66045fa276788d09947f5237"
+  },
+  "Nome": "Remada Sentada",
+  "Musculo": "Costas, Bíceps",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Sente-se em uma máquina de remada com os pés apoiados firmemente nos suportes e puxe a barra em direção ao abdômen, mantendo os cotovelos próximos ao corpo",
+  "Maquina": "Máquina de remada",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Média"
+},
+{
+  "_id": {
+    "$oid": "66045fa576788d09947f5238"
+  },
+  "Nome": "Crucifixo",
+  "Musculo": "Peitoral",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Deite-se em um banco com um haltere em cada mão, estenda os braços para os lados e junte os halteres acima do peito, mantendo um leve flexionamento nos cotovelos",
+  "Maquina": "Halteres",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Alta"
+},
+{
+  "_id": {
+    "$oid": "66045fa776788d09947f5239"
+  },
+  "Nome": "Elevação Frontal",
+  "Musculo": "Ombros",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Segure halteres com as palmas das mãos viradas para baixo, levante os braços estendidos à frente do corpo até a altura dos ombros e depois abaixe-os lentamente",
+  "Maquina": "Halteres",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Alta"
+},
+{
+  "_id": {
+    "$oid": "66045faa76788d09947f523a"
+  },
+  "Nome": "Abdominal Crunch",
+  "Musculo": "Abdominais",
+  "Sets": 12,
+  "Duracao": "45 seg",
+  "Repeticao": 3,
+  "Descricao": "Deite-se de costas com os joelhos flexionados, mãos atrás da cabeça, contraia os abdominais para levantar os ombros do chão, mantendo a lombar no chão, e depois abaixe os ombros de volta",
+  "Maquina": "Sem máquina",
+  "Descanso": "1 min entre series",
+  "Codigo": 1,
+  "Frequencia": "Média"
+}]

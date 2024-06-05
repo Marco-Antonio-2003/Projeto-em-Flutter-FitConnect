@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart';
 
 class CadastrarAlunoPage extends StatefulWidget {
@@ -16,7 +16,6 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  // Controladores de texto para cada campo
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _codigoController = TextEditingController();
   final TextEditingController _dataNascimentoController =
@@ -31,7 +30,6 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
   final TextEditingController _codigoDeAcessoController =
       TextEditingController();
 
-  // Índices para o BottomNavigationBar
   int _bottomNavBarIndex = 1;
 
   @override
@@ -85,36 +83,26 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
     });
   }
 
-  void _cadastrarAluno() async {
-    final CollectionReference alunos =
-        FirebaseFirestore.instance.collection('alunos');
+  void _cadastrarAluno() {
+    // Aqui você pode adicionar a lógica para cadastrar o aluno
+    // Por exemplo, você pode enviar os dados para um serviço web ou para outro sistema de armazenamento de dados
+    // ou pode simplesmente exibir os dados para fins de depuração
+    print('Nome: ${_nomeController.text}');
+    print('Código: ${_codigoController.text}');
+    print('Data de Nascimento: ${_dataNascimentoController.text}');
+    print('Gênero: ${_generoController.text}');
+    print('Horários: ${_horariosController.text}');
+    print('CPF: ${_cpfController.text}');
+    print('Estado: ${_estadoController.text}');
+    print('Telefone: ${_telefoneController.text}');
+    print('Altura: ${_alturaController.text}');
+    print('Peso: ${_pesoController.text}');
+    print('Código de Acesso: ${_codigoDeAcessoController.text}');
 
-    // Dados do aluno a serem adicionados
-    final alunoData = {
-      'nome': _nomeController.text,
-      'codigo': int.tryParse(_codigoController.text) ?? 0,
-      'dataDeNasc': _dataNascimentoController.text,
-      'genero': _generoController.text,
-      'horarios': _horariosController.text,
-      'cpf': _cpfController.text,
-      'estado': _estadoController.text,
-      'telefone': _telefoneController.text,
-      'altura': double.tryParse(_alturaController.text) ?? 0.0,
-      'peso': int.tryParse(_pesoController.text) ?? 0,
-      'codigoDeAcesso': _codigoDeAcessoController.text,
-    };
-
-    try {
-      await alunos.add(alunoData);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Aluno cadastrado com sucesso!')),
-      );
-      Navigator.pop(context);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao cadastrar aluno: $e')),
-      );
-    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Aluno cadastrado com sucesso!')),
+    );
+    Navigator.pop(context);
   }
 
   @override
@@ -145,164 +133,95 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 20),
-              const Text(
-                'Nome completo',
-                style: TextStyle(color: Colors.white),
-              ),
+              Text('Nome e sobrenome', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _nomeController,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Código',
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                controller: _codigoController,
-                keyboardType: TextInputType.number,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Data de nascimento',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('Data de Nascimento', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _dataNascimentoController,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Gênero',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('Gênero', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _generoController,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Horários',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('Horários', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _horariosController,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'CPF',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('CPF', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _cpfController,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Estado',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('Estado', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _estadoController,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Número de telefone',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('Telefone', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _telefoneController,
                 keyboardType: TextInputType.phone,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Altura',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('Altura', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _alturaController,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Peso',
-                style: TextStyle(color: Colors.white),
-              ),
+              SizedBox(height: 10),
+              Text('Peso', style: TextStyle(color: Colors.white)),
               TextField(
                 controller: _pesoController,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Código de Acesso',
-                style: TextStyle(color: Colors.white),
-              ),
-              TextField(
-                controller: _codigoDeAcessoController,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1),
-                ),
-              ),
-              const SizedBox(height: 20),
+              SizedBox(height: 10),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _cadastrarAluno,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                ),
-                child: const Text(
-                  'Cadastrar Aluno',
-                  style: TextStyle(color: Colors.white),
-                ),
+                child: Text('Cadastrar Aluno'),
               ),
             ],
           ),

@@ -19,6 +19,10 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/Projeto_integrador.Professor.json
+    - assets/Projeto_integrador.Produtos.json
+    - assets/Projeto_integrador.Aluno.json
+    - assets/Projeto_integrador.Exercicios.json
     - assets/img/logo1.png
     - assets/img/quadrimusc.jpeg
     - assets/img/forearmmusc.jpg

@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // Define a rota inicial como '/'
       routes: {
-        '/': (context) => MainPage(), // Define a tela principal como a rota inicial
+        '/': (context) =>
+            MainPage(), // Define a tela principal como a rota inicial
         '/aluno_login': (context) => AlunoLoginPage(),
         '/professor_login': (context) => ProfessorLoginPage(),
       },

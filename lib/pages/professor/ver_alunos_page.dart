@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart';
 import 'package:flutter_application_1/pages/professor/main_page_professor.dart';
@@ -6,7 +7,7 @@ import 'vermais_aluno.dart'; // Importe a página AlunoPage2
 class VerAlunosPage extends StatefulWidget {
   VerAlunosPage({super.key, this.nomeProfessor});
 
-  String? nomeProfessor;
+  final String? nomeProfessor;
 
   @override
   State<VerAlunosPage> createState() => _VerAlunosPageState();
@@ -16,25 +17,30 @@ class _VerAlunosPageState extends State<VerAlunosPage> {
   int _selectedIndex = 1;
   TextEditingController _searchController = TextEditingController();
   List<String> _filteredAlunos = [];
-
-  final List<String> _alunos = [
-    'Ana Silva',
-    'Bruno Costa',
-    'Carla Souza',
-    'Daniel Oliveira',
-    'Elaine Santos',
-    'Felipe Lima',
-    'Gabriela Martins',
-    'Henrique Almeida',
-    'Isabel Pereira',
-    'João Rodrigues'
-  ];
+  List<String> _alunos = []; // Lista de alunos
 
   @override
   void initState() {
     super.initState();
-    _filteredAlunos = _alunos;
+    _loadAlunosFromJson(); // Carrega os alunos do arquivo JSON
     _searchController.addListener(_filterAlunos);
+  }
+
+  // Função para carregar os alunos do arquivo JSON
+  void _loadAlunosFromJson() async {
+    try {
+      String data = await DefaultAssetBundle.of(context)
+          .loadString('assets/Projeto_integrador.Aluno.json');
+      List<dynamic> alunosJson = json.decode(data);
+      setState(() {
+        _alunos = _alunos =
+            alunosJson.map<String>((aluno) => aluno['Nome'] as String).toList();
+
+        _filteredAlunos = _alunos;
+      });
+    } catch (e) {
+      print('Erro ao carregar alunos: $e');
+    }
   }
 
   void _filterAlunos() {
@@ -47,33 +53,31 @@ class _VerAlunosPageState extends State<VerAlunosPage> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      // Realize ações com base no índice selecionado
-      switch (index) {
-        case 0:
-          Navigator.pop(context);
-          break;
-        case 1:
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MainPageProfessor(),
-            ),
-          );
-          break;
-        case 2:
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TelaSuplementos(),
-            ),
-          );
-          break;
-        default:
-          break;
-      }
-    });
+    _selectedIndex = index;
+    // Realize ações com base no índice selecionado
+    switch (index) {
+      case 0:
+        Navigator.pop(context);
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPageProfessor(),
+          ),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TelaSuplementos(),
+          ),
+        );
+        break;
+      default:
+        break;
+    }
   }
 
   @override
@@ -95,7 +99,7 @@ class _VerAlunosPageState extends State<VerAlunosPage> {
           children: [
             AppBar(
               title: Text(
-                'Olá, ${widget.nomeProfessor}',
+                'Seus alunos são',
                 style: const TextStyle(color: Colors.white),
               ),
               backgroundColor: const Color.fromARGB(0, 248, 248, 248),
@@ -116,33 +120,31 @@ class _VerAlunosPageState extends State<VerAlunosPage> {
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    _filteredAlunos.length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        // Ao clicar em um aluno, navegue para a página AlunoPage2
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AlunoPage2(
-                              nomeAluno: _filteredAlunos[index],
-                              nomeProfessor: widget.nomeProfessor ?? '',
-                            ),
+              child: ListView.builder(
+                itemCount: _filteredAlunos.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      // Ao clicar em um aluno, navegue para a página AlunoPage2
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AlunoPage2(
+                            nomeAluno: _filteredAlunos[index],
+                            nomeProfessor: widget.nomeProfessor ?? '',
                           ),
-                        );
-                      },
-                      child: ListTile(
-                        title: Text(
-                          _filteredAlunos[index],
-                          style: const TextStyle(
-                              color: Colors.white), // Cor do texto
                         ),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(
+                        _filteredAlunos[index],
+                        style: const TextStyle(
+                            color: Colors.white), // Cor do texto
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ),
           ],
