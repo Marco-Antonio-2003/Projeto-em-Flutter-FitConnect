@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/pages/produtos/tela1.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class CadastrarAlunoPage extends StatefulWidget {
-  CadastrarAlunoPage({Key? key, this.nomeProfessor});
-
   final String? nomeProfessor;
+
+  CadastrarAlunoPage({Key? key, this.nomeProfessor}) : super(key: key);
 
   @override
   State<CadastrarAlunoPage> createState() => _CadastrarAlunoPageState();
@@ -15,20 +17,22 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-
   final TextEditingController _nomeController = TextEditingController();
-  final TextEditingController _codigoController = TextEditingController();
   final TextEditingController _dataNascimentoController =
       TextEditingController();
-  final TextEditingController _generoController = TextEditingController();
-  final TextEditingController _horariosController = TextEditingController();
-  final TextEditingController _cpfController = TextEditingController();
+  String? _genero;
+  final MaskedTextController _horariosController =
+      MaskedTextController(mask: '00:00 até 00:00');
+  final MaskedTextController _cpfController =
+      MaskedTextController(mask: '000.000.000-00');
   final TextEditingController _estadoController = TextEditingController();
-  final TextEditingController _telefoneController = TextEditingController();
+  final MaskedTextController _telefoneController =
+      MaskedTextController(mask: '(00) 00000-0000');
   final TextEditingController _alturaController = TextEditingController();
   final TextEditingController _pesoController = TextEditingController();
-  final TextEditingController _codigoDeAcessoController =
-      TextEditingController();
+  DateTime? _selectedDate;
+
+  List<String> estados = ['SP', 'MG', 'RJ', 'PR', 'ES', 'SC'];
 
   int _bottomNavBarIndex = 1;
 
@@ -55,54 +59,71 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
   void _onBottomNavBarTapped(int index) {
     setState(() {
       _bottomNavBarIndex = index;
-      switch (index) {
-        case 0:
-          Navigator.pop(context);
-          break;
-        case 1:
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CadastrarAlunoPage(
-                nomeProfessor: widget.nomeProfessor,
-              ),
-            ),
-          );
-          break;
-        case 2:
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TelaSuplementos(),
-            ),
-          );
-          break;
-        default:
-          break;
-      }
+      // Lógica de navegação do BottomNavigationBar
     });
   }
 
-  void _cadastrarAluno() {
-    // Aqui você pode adicionar a lógica para cadastrar o aluno
-    // Por exemplo, você pode enviar os dados para um serviço web ou para outro sistema de armazenamento de dados
-    // ou pode simplesmente exibir os dados para fins de depuração
-    print('Nome: ${_nomeController.text}');
-    print('Código: ${_codigoController.text}');
-    print('Data de Nascimento: ${_dataNascimentoController.text}');
-    print('Gênero: ${_generoController.text}');
-    print('Horários: ${_horariosController.text}');
-    print('CPF: ${_cpfController.text}');
-    print('Estado: ${_estadoController.text}');
-    print('Telefone: ${_telefoneController.text}');
-    print('Altura: ${_alturaController.text}');
-    print('Peso: ${_pesoController.text}');
-    print('Código de Acesso: ${_codigoDeAcessoController.text}');
+  Future<List<dynamic>> _loadJson() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonData = prefs.getString('alunos');
+    if (jsonData != null) {
+      return json.decode(jsonData);
+    }
+    return [];
+  }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Aluno cadastrado com sucesso!')),
+  Future<void> _saveJson(List<dynamic> jsonData) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('alunos', json.encode(jsonData));
+  }
+
+  Future<void> _cadastrarAluno() async {
+    try {
+      List<dynamic> alunos = await _loadJson();
+
+      Map<String, dynamic> novoAluno = {
+        "_id": {"\$oid": DateTime.now().millisecondsSinceEpoch.toString()},
+        "Nome": _nomeController.text,
+        "Codigo": alunos.length + 1,
+        "Data de Nasc": {"\$date": _selectedDate?.toIso8601String()},
+        "Genero": _genero,
+        "Horarios": _horariosController.text,
+        "CPF": _cpfController.text,
+        "Estado": _estadoController.text,
+        "Telefone": _telefoneController.text,
+        "Altura": {"\$numberDecimal": _alturaController.text},
+        "Peso": int.tryParse(_pesoController.text),
+        "CodigoDeAcesso": (alunos.length + 1).toString().padLeft(5, '0')
+      };
+
+      alunos.add(novoAluno);
+
+      await _saveJson(alunos);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Aluno cadastrado com sucesso!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao cadastrar aluno: $e')),
+      );
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
     );
-    Navigator.pop(context);
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        _dataNascimentoController.text =
+            "${picked.day}/${picked.month}/${picked.year}";
+      });
+    }
   }
 
   @override
@@ -143,21 +164,43 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
               ),
               SizedBox(height: 10),
               Text('Data de Nascimento', style: TextStyle(color: Colors.white)),
-              TextField(
-                controller: _dataNascimentoController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1),
+              InkWell(
+                onTap: () => _selectDate(context),
+                child: IgnorePointer(
+                  child: TextField(
+                    controller: _dataNascimentoController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.1),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 10),
               Text('Gênero', style: TextStyle(color: Colors.white)),
-              TextField(
-                controller: _generoController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1),
-                ),
+              Row(
+                children: [
+                  Radio<String>(
+                    value: 'Masculino',
+                    groupValue: _genero,
+                    onChanged: (value) {
+                      setState(() {
+                        _genero = value;
+                      });
+                    },
+                  ),
+                  Text('Masculino', style: TextStyle(color: Colors.white)),
+                  Radio<String>(
+                    value: 'Feminino',
+                    groupValue: _genero,
+                    onChanged: (value) {
+                      setState(() {
+                        _genero = value;
+                      });
+                    },
+                  ),
+                  Text('Feminino', style: TextStyle(color: Colors.white)),
+                ],
               ),
               SizedBox(height: 10),
               Text('Horários', style: TextStyle(color: Colors.white)),
@@ -166,6 +209,7 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
+                  hintText: 'HH:mm até HH:mm',
                 ),
               ),
               SizedBox(height: 10),
@@ -176,12 +220,26 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
+                  hintText: '000.000.000-00',
                 ),
               ),
               SizedBox(height: 10),
               Text('Estado', style: TextStyle(color: Colors.white)),
-              TextField(
-                controller: _estadoController,
+              DropdownButtonFormField<String>(
+                value: _estadoController.text.isEmpty
+                    ? null
+                    : _estadoController.text,
+                items: estados.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    _estadoController.text = value!;
+                  });
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
@@ -195,6 +253,7 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.1),
+                  hintText: '(00) 00000-0000',
                 ),
               ),
               SizedBox(height: 10),
@@ -217,7 +276,6 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
                   fillColor: Colors.white.withOpacity(0.1),
                 ),
               ),
-              SizedBox(height: 10),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _cadastrarAluno,

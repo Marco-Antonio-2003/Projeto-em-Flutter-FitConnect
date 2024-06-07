@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart';
 import 'package:flutter_application_1/pages/professor/main_page_professor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'vermais_aluno.dart'; // Importe a página AlunoPage2
 
 class VerAlunosPage extends StatefulWidget {
@@ -16,28 +17,31 @@ class VerAlunosPage extends StatefulWidget {
 class _VerAlunosPageState extends State<VerAlunosPage> {
   int _selectedIndex = 1;
   TextEditingController _searchController = TextEditingController();
-  List<String> _filteredAlunos = [];
-  List<String> _alunos = []; // Lista de alunos
+  List<Map<String, dynamic>> _filteredAlunos = [];
+  List<Map<String, dynamic>> _alunos = []; // Lista de alunos
 
   @override
   void initState() {
     super.initState();
-    _loadAlunosFromJson(); // Carrega os alunos do arquivo JSON
+    _loadAlunosFromSharedPreferences(); // Carrega os alunos do shared preferences
     _searchController.addListener(_filterAlunos);
   }
 
-  // Função para carregar os alunos do arquivo JSON
-  void _loadAlunosFromJson() async {
+  // Função para carregar os alunos do shared preferences
+  void _loadAlunosFromSharedPreferences() async {
     try {
-      String data = await DefaultAssetBundle.of(context)
-          .loadString('assets/Projeto_integrador.Aluno.json');
-      List<dynamic> alunosJson = json.decode(data);
-      setState(() {
-        _alunos = _alunos =
-            alunosJson.map<String>((aluno) => aluno['Nome'] as String).toList();
-
-        _filteredAlunos = _alunos;
-      });
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? jsonData = prefs.getString('alunos');
+      if (jsonData != null) {
+        List<dynamic> alunosPrefs = json.decode(jsonData);
+        setState(() {
+          _alunos = alunosPrefs
+              .map<Map<String, dynamic>>(
+                  (aluno) => aluno as Map<String, dynamic>)
+              .toList();
+          _filteredAlunos = _alunos;
+        });
+      }
     } catch (e) {
       print('Erro ao carregar alunos: $e');
     }
@@ -47,9 +51,49 @@ class _VerAlunosPageState extends State<VerAlunosPage> {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filteredAlunos = _alunos.where((aluno) {
-        return aluno.toLowerCase().contains(query);
+        return aluno['Nome'].toLowerCase().contains(query);
       }).toList();
     });
+  }
+
+  // Função para excluir um aluno com confirmação
+  void _confirmDeleteAluno(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Confirmação de exclusão'),
+          content: Text('Tem certeza que deseja excluir esse aluno?'),
+          actions: [
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Excluir'),
+              onPressed: () {
+                _deleteAluno(index);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Função para excluir um aluno
+  void _deleteAluno(int index) async {
+    setState(() {
+      _alunos.removeAt(index);
+      _filteredAlunos = _alunos;
+    });
+
+    // Atualizar shared preferences
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('alunos', json.encode(_alunos));
   }
 
   void _onItemTapped(int index) {
@@ -130,7 +174,7 @@ class _VerAlunosPageState extends State<VerAlunosPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AlunoPage2(
-                            nomeAluno: _filteredAlunos[index],
+                            nomeAluno: _filteredAlunos[index]['Nome'],
                             nomeProfessor: widget.nomeProfessor ?? '',
                           ),
                         ),
@@ -138,9 +182,15 @@ class _VerAlunosPageState extends State<VerAlunosPage> {
                     },
                     child: ListTile(
                       title: Text(
-                        _filteredAlunos[index],
+                        _filteredAlunos[index]['Nome'],
                         style: const TextStyle(
                             color: Colors.white), // Cor do texto
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete, color: Colors.red),
+                        onPressed: () {
+                          _confirmDeleteAluno(index);
+                        },
                       ),
                     ),
                   );

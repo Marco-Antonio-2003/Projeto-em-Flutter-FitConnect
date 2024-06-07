@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_application_1/pages/aluno/aluno_login.dart';
 import 'package:flutter_application_1/pages/professor/professor_login_page.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart'; // Adicione isso
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized(); // Adicione esta linha
   runApp(MyApp());
 }
 
