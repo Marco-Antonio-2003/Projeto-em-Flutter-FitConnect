@@ -7,11 +7,13 @@ class ExercicioInfoPage extends StatefulWidget {
     required this.nomeExercicio,
     required this.imagePath,
     required this.graph,
+    required this.nomeAluno,
   });
 
   final String nomeExercicio;
   final String imagePath;
   final String graph;
+  final String nomeAluno;
 
   @override
   State<ExercicioInfoPage> createState() => _ExercicioInfoPageState();
@@ -23,7 +25,6 @@ class _ExercicioInfoPageState extends State<ExercicioInfoPage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      // Realize ações com base no índice selecionado
       switch (index) {
         case 0:
           Navigator.pop(context);
@@ -32,7 +33,8 @@ class _ExercicioInfoPageState extends State<ExercicioInfoPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AlunoInicialPage(),
+              builder: (context) =>
+                  AlunoInicialPage(nomeAluno: widget.nomeAluno),
             ),
           );
           break;

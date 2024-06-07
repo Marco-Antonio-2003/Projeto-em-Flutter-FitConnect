@@ -4,8 +4,9 @@ import 'package:flutter_application_1/pages/aluno/feedback_page.dart';
 import 'package:flutter_application_1/pages/produtos/tela1.dart';
 
 class AlunoInicialPage extends StatefulWidget {
-  AlunoInicialPage({Key? key}) : super(key: key);
+  AlunoInicialPage({super.key, this.nomeAluno});
 
+  String? nomeAluno;
   @override
   State<AlunoInicialPage> createState() => _AlunoInicialPageState();
 }
@@ -142,10 +143,11 @@ class _AlunoInicialPageState extends State<AlunoInicialPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Olá, Aluno',
+        title: Text(
+          'Olá, ${widget.nomeAluno}',
           style: TextStyle(color: Colors.white),
         ),
+        iconTheme: IconThemeData(color: Colors.white), // Cor dos ícones
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -287,6 +289,7 @@ Widget _buildProductCard(BuildContext context, String name, String quantidade,
               nomeExercicio: name,
               imagePath: imagePath,
               graph: Graph,
+              nomeAluno: '',
             ),
           ),
         );
@@ -301,6 +304,7 @@ void main() {
     theme: ThemeData(
       appBarTheme: const AppBarTheme(
         color: Colors.black87,
+        iconTheme: IconThemeData(color: Colors.white), // Cor dos ícones no tema
       ),
     ),
   ));

@@ -7,6 +7,7 @@ class FeedbackPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Feedback', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFF042c2c),
+        iconTheme: IconThemeData(color: Colors.white), // Cor dos ícones
       ),
       body: Container(
         decoration: BoxDecoration(

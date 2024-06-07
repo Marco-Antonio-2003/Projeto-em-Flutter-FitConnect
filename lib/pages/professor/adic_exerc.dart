@@ -17,6 +17,8 @@ class _AdicionarExercicioPageState extends State<AdicionarExercicioPage> {
   final _frequenciaController = TextEditingController();
   DateTime? _selectedDay;
 
+  List<Map<String, dynamic>> _exercicios = [];
+
   @override
   void dispose() {
     _nomeController.dispose();
@@ -32,16 +34,38 @@ class _AdicionarExercicioPageState extends State<AdicionarExercicioPage> {
   }
 
   void _adicionarExercicio() {
-    print('Nome: ${_nomeController.text}');
-    print('Musculo: ${_musculoController.text}');
-    print('Sets: ${_setsController.text}');
-    print('Duração: ${_duracaoController.text}');
-    print('Repetição: ${_repeticaoController.text}');
-    print('Descrição: ${_descricaoController.text}');
-    print('Máquina: ${_maquinaController.text}');
-    print('Descanso: ${_descansoController.text}');
-    print('Frequência: ${_frequenciaController.text}');
-    print('Data Selecionada: $_selectedDay');
+    setState(() {
+      _exercicios.add({
+        'nome': _nomeController.text,
+        'musculo': _musculoController.text,
+        'sets': _setsController.text,
+        'duracao': _duracaoController.text,
+        'repeticao': _repeticaoController.text,
+        'descricao': _descricaoController.text,
+        'maquina': _maquinaController.text,
+        'descanso': _descansoController.text,
+        'frequencia': _frequenciaController.text,
+        'dataSelecionada': _selectedDay != null
+            ? '${_selectedDay!.day}/${_selectedDay!.month}/${_selectedDay!.year}'
+            : 'Não selecionada',
+      });
+      _limparCampos();
+    });
+  }
+
+  void _limparCampos() {
+    _nomeController.clear();
+    _musculoController.clear();
+    _setsController.clear();
+    _duracaoController.clear();
+    _repeticaoController.clear();
+    _descricaoController.clear();
+    _maquinaController.clear();
+    _descansoController.clear();
+    _frequenciaController.clear();
+    setState(() {
+      _selectedDay = null;
+    });
   }
 
   @override
@@ -99,6 +123,8 @@ class _AdicionarExercicioPageState extends State<AdicionarExercicioPage> {
                   foregroundColor: Colors.white,
                 ),
               ),
+              const SizedBox(height: 20),
+              _buildExerciciosList(),
             ],
           ),
         ),
@@ -166,6 +192,30 @@ class _AdicionarExercicioPageState extends State<AdicionarExercicioPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildExerciciosList() {
+    return ListView.builder(
+      shrinkWrap: true, // Add this to make it work inside SingleChildScrollView
+      physics: NeverScrollableScrollPhysics(), // Disable list view scrolling
+      itemCount: _exercicios.length,
+      itemBuilder: (context, index) {
+        final exercicio = _exercicios[index];
+        return Card(
+          color: Colors.white.withOpacity(0.1),
+          child: ListTile(
+            title: Text(
+              exercicio['nome'],
+              style: TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              'Músculo: ${exercicio['musculo']}\nSets: ${exercicio['sets']}\nDuração: ${exercicio['duracao']}\nRepetição: ${exercicio['repeticao']}\nMáquina: ${exercicio['maquina']}\nDescanso: ${exercicio['descanso']}\nFrequência: ${exercicio['frequencia']}\nData: ${exercicio['dataSelecionada']}',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
     );
   }
 }

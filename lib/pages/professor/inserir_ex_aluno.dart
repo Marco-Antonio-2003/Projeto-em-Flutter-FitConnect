@@ -3,9 +3,9 @@ import 'package:flutter_application_1/pages/produtos/tela1.dart';
 import 'package:flutter_application_1/pages/professor/main_page_professor.dart';
 
 class InserirExAlunoPage extends StatefulWidget {
-  InserirExAlunoPage({Key? key, required this.nomeAluno});
-
   final String nomeAluno;
+
+  InserirExAlunoPage({Key? key, required this.nomeAluno}) : super(key: key);
 
   @override
   State<InserirExAlunoPage> createState() => _InserirExAlunoPageState();
@@ -31,7 +31,6 @@ class _InserirExAlunoPageState extends State<InserirExAlunoPage> {
     'Rosca Direta',
     'Agachamento',
     'Tríceps Banco',
-    'Panturilhas',
     'Elevação Lateral',
     'Remada Curvada'
   ];
@@ -87,7 +86,6 @@ class _InserirExAlunoPageState extends State<InserirExAlunoPage> {
       _exerciciosPorDia[dia]!.add({
         'name': exercicio,
         'quantidade': '$repeticoes rept / $kgs KGs',
-        'completed': false
       });
       _repeticoesController.clear();
       _kgController.clear();

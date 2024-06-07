@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Importar para acessar arquivos locais
 import 'package:flutter_application_1/banco/test_conexao.dart';
+import 'package:flutter_application_1/main.dart';
 import 'main_page_professor.dart';
 
 class ProfessorLoginPage extends StatefulWidget {
@@ -73,6 +74,22 @@ class _ProfessorLoginPageState extends State<ProfessorLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Login do Professor'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      MyApp()), // Substitua MyApp() pelo nome correto da sua página inicial
+            );
+          },
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Remove a sombra da AppBar
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
