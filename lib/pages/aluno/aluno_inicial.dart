@@ -147,7 +147,6 @@ class _AlunoInicialPageState extends State<AlunoInicialPage> {
           'Olá, ${widget.nomeAluno}',
           style: TextStyle(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Colors.white), // Cor dos ícones
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -304,7 +303,6 @@ void main() {
     theme: ThemeData(
       appBarTheme: const AppBarTheme(
         color: Colors.black87,
-        iconTheme: IconThemeData(color: Colors.white), // Cor dos ícones no tema
       ),
     ),
   ));

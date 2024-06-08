@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
 class CadastrarAlunoPage extends StatefulWidget {
   final String? nomeProfessor;
@@ -279,30 +279,34 @@ class _CadastrarAlunoPageState extends State<CadastrarAlunoPage>
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _cadastrarAluno,
-                child: Text('Cadastrar Aluno'),
+                child: Text('Cadastrar'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.teal,
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
               ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        currentIndex: _bottomNavBarIndex,
+        onTap: _onBottomNavBarTapped,
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_back),
-            label: 'Voltar',
+            icon: Icon(Icons.add),
+            label: 'Cadastrar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.list),
+            label: 'Alunos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Produtos',
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
           ),
         ],
-        currentIndex: _bottomNavBarIndex,
-        selectedItemColor: Colors.teal,
-        onTap: _onBottomNavBarTapped,
       ),
     );
   }

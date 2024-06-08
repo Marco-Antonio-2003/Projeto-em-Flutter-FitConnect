@@ -6,10 +6,11 @@ class TelaSuplementos extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nossos Produtos', style: TextStyle(color: Colors.black)),
+        title: const Text('Nossos Produtos',
+            style: TextStyle(color: Colors.black)),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -77,7 +78,8 @@ class TelaSuplementos extends StatelessWidget {
     );
   }
 
-  Widget _buildProductCard(BuildContext context, String name, double price, String description, String imagePath) {
+  Widget _buildProductCard(BuildContext context, String name, double price,
+      String description, String imagePath) {
     return Card(
       margin: const EdgeInsets.all(8.0),
       color: Colors.grey[900],
@@ -96,7 +98,8 @@ class TelaSuplementos extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Preço: R\$${price.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white)),
+            Text('Preço: R\$${price.toStringAsFixed(2)}',
+                style: const TextStyle(color: Colors.white)),
             Text(description, style: const TextStyle(color: Colors.white)),
           ],
         ),

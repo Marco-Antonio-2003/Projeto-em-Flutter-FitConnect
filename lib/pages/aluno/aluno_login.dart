@@ -72,8 +72,12 @@ class _AlunoLoginPageState extends State<AlunoLoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white), // Cor do ícone de voltar
-        backgroundColor: const Color(0xFF042c2c), // Cor do fundo da AppBar
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white), // Ícone branco
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(

@@ -6,6 +6,12 @@ class EstoqueProfPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white), // Ícone branco
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: const Text(
           'Estoque',
           style: TextStyle(color: Colors.white),
@@ -94,7 +100,8 @@ class EstoqueProfPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProductCard(BuildContext context, String name, double price, String imagePath, int quantityInStock) {
+  Widget _buildProductCard(BuildContext context, String name, double price,
+      String imagePath, int quantityInStock) {
     return Card(
       margin: const EdgeInsets.all(8.0),
       color: Colors.transparent,
@@ -113,8 +120,10 @@ class EstoqueProfPage extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Preço: R\$ $price', style: const TextStyle(color: Colors.white)),
-            Text('Quantidade em estoque: $quantityInStock', style: const TextStyle(color: Colors.white)),
+            Text('Preço: R\$ $price',
+                style: const TextStyle(color: Colors.white)),
+            Text('Quantidade em estoque: $quantityInStock',
+                style: const TextStyle(color: Colors.white)),
           ],
         ),
         onTap: () {
